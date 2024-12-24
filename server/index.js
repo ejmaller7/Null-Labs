@@ -7,8 +7,10 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
+app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), '../dist')));
+
 app.get('*', (_req, res) => {
-    res.sendFile(path.join(path.dirname(fileURLToPath(import.meta.url)), 'dist', 'index.html'));
+    res.sendFile(path.join(path.dirname(fileURLToPath(import.meta.url)), '../dist', 'index.html'));
 });
 
 app.listen(port, () => {
