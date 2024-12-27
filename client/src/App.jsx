@@ -6,8 +6,11 @@ import DealOfTheWeek from './components/DealOfTheWeek';
 import Wishlist from './components/Wishlist';
 import Profile from './components/Profile';
 import Footer from './components/Footer';
+import SignIn from './components/SignIn';
+import CreateAccount from './components/CreateAccount';
 
 const App = () => {
+
   return (
     <Router>
       <NavBar />
@@ -19,6 +22,8 @@ const App = () => {
           <Route path="/dealoftheweek" element={<DealOfTheWeek />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/signin" element={<SignIn/>} />
+          <Route path="/createaccount" element={<CreateAccount/>} />
         </Routes>
       </main>
       <Footer />

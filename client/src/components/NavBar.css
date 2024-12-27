@@ -62,6 +62,34 @@
   transform: scale(1.1);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); 
 }
+
+.profile-dropdown {
+    position: absolute;
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1;
+  }
+  
+  .profile-dropdown a, .profile-dropdown button {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .profile-dropdown a:hover, .profile-dropdown button:hover {
+    color: #ff6347;  
+  }
     
   
 @media (max-width: 768px) {
