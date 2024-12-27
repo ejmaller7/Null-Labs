@@ -66,7 +66,7 @@ const Footer = () => {
                     <FontAwesomeIcon icon={faGithub} size="2x" />
                 </a>
                 <a
-                    href="https://www.linkedin.com/in/ethan-maller/"
+                    href="https://www.linkedin.com/in/justin-miller-05047b293/"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={styles.icon}
@@ -74,7 +74,7 @@ const Footer = () => {
                     <FontAwesomeIcon icon={faLinkedin} size="2x" />
                 </a>
                 <a
-                    href="https://x.com/ejmaller7"
+                    href=""
                     target="_blank"
                     rel="noopener noreferrer"
                     style={styles.icon}
