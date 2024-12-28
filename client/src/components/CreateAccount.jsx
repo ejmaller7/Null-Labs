@@ -7,9 +7,10 @@ const CreateAccount = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [success, setSuccess] = useState('');
+//   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Checke if passwords match
@@ -18,19 +19,37 @@ const CreateAccount = () => {
       return;
     }
 
-    const newUser = {
-      email,
-      password,
-    };
+    try {
+        const response = await fetch('http://localhost:4000/api/create-account', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Account created with ID:', data.userId);
+    
+          setSuccess('Account created successfully!');
+    
+        // resets all fields
+          setEmail('');
+          setPassword('');
+          setConfirmPassword('');
+          setError(''); 
+        } else {
+          const errorData = await response.json();
+          setError(errorData.message || 'Failed to create account');
+        }
+      } catch (error) {
+        console.error('Error creating account:', error);
+        setError('Something went wrong. Please try again later.');
+      }
+};
 
-    // Test
-    console.log('User created:', newUser);
-
-    // Redirect user to profile after account created
-    navigate('/profile'); 
-  };
-
-  return (
+return (
     <div className="create-account-container">
       <h2>Create Account</h2>
       <form onSubmit={handleSubmit}>
@@ -68,6 +87,7 @@ const CreateAccount = () => {
         </div>
 
         {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>} 
 
         <button type="submit">Create Account</button>
       </form>
