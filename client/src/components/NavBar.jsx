@@ -34,10 +34,13 @@ const NavBar = () => {
                             <Link to="/" className="header__link">Home</Link>
                         </li>
                         <li>
-                            <Link to="/featuredgames" className="header__link">Featured Games</Link>
+                            <Link to="/category/action" className="header__link">Action</Link>
                         </li>
                         <li>
-                            <Link to="/dealoftheweek" className="header__link">Deal of the Week!</Link>
+                            <Link to="/category/rpg" className="header__link">RPG</Link>
+                        </li>
+                        <li>
+                          <Link to="/category/strategy" className="header__link">Strategy</Link>
                         </li>
                         <li
                           onMouseEnter={() => setIsHovered(true)}
