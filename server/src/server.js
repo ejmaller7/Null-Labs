@@ -24,7 +24,7 @@ const pool = new Pool({
     port: process.env.DB_PORT || 5432, 
 });
 
-app.use(cors({ origin: 'http://localhost:5173', 'https://null-labs-oejq.onrender.com' }));
+app.use(cors({ origin: ['http://localhost:5173', 'https://null-labs-oejq.onrender.com'] }));
 
 app.use(express.json());
 
