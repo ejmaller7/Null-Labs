@@ -10,7 +10,8 @@ const HomePage = ({ games }) => {
       {dealOfTheWeek && <DealOfTheWeek game={dealOfTheWeek} />}
       <FeaturedGames games={featuredGames} />
     </div>
-  );
-};
+   )
+
+}
 
 export default HomePage;
