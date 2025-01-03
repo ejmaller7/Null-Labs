@@ -19,8 +19,12 @@ const CreateAccount = () => {
       return;
     }
 
+    const apiUrl = process.env.NODE_ENV === 'production' 
+  ? 'https://null-labs-oejq.onrender.com/api/create-account' 
+  : 'http://localhost:4000/api/create-account';
+
     try {
-        const response = await fetch('http://localhost:4000/api/create-account', {
+        const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
