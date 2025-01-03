@@ -6,8 +6,10 @@ import pkg from 'pg';
 const { Pool } = pkg;
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fetch from 'node-fetch';
 
 dotenv.config();
+console.log('STEAM_API_KEY:', process.env.STEAM_API_KEY);
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -22,7 +24,7 @@ const pool = new Pool({
     port: process.env.DB_PORT || 5432, 
 });
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 app.use(express.json());
 
@@ -51,6 +53,27 @@ app.post('/api/create-account', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
       }
     }
+});
+
+app.get('/api/steam-games', async (req, res) => {
+  const steamAPIKey = process.env.STEAM_API_KEY;
+  console.log("Steam API Key:", steamAPIKey);
+  const API_URL = `https://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=${steamAPIKey}&format=json`;
+
+  try {
+    const response = await fetch(API_URL);
+
+    if (!response.ok) {
+      const errorDetails = await response.text(); 
+      throw new Error(`Steam API request failed: ${response.status} - ${errorDetails}`);
+    }
+
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching Steam games:", error);
+    res.status(500).send(`Error fetching Steam games: ${error.message}`);
+  }
 });
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
