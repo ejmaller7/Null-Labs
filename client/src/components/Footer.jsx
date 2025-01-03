@@ -120,7 +120,7 @@ const Footer = () => {
             <div>
             {/* Copy this same format just replace the link with your own link to your Github, LinkedIn & Third I have twitter but we can use something else or nothing else*/}
                 <a
-                    href="https://github.com/ejmaller7"
+                    href="https://github.com/ChrisFort03"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={styles.icon}
@@ -128,7 +128,7 @@ const Footer = () => {
                     <FontAwesomeIcon icon={faGithub} size="2x" />
                 </a>
                 <a
-                    href="https://www.linkedin.com/in/ethan-maller/"
+                    href="https://www.linkedin.com/in/christopher-fortier-005330344/"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={styles.icon}
@@ -136,7 +136,7 @@ const Footer = () => {
                     <FontAwesomeIcon icon={faLinkedin} size="2x" />
                 </a>
                 <a
-                    href="https://x.com/ejmaller7"
+                    href="https://x.com/Christo42969727"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={styles.icon}
