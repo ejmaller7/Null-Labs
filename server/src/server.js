@@ -57,24 +57,52 @@ app.post('/api/create-account', async (req, res) => {
     }
 });
 
-app.get('/api/steam-games', async (req, res) => {
-  const steamAPIKey = process.env.STEAM_API_KEY;
-  console.log("Steam API Key:", steamAPIKey);
-  const API_URL = `https://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=${steamAPIKey}&format=json`;
+// app.get('/api/steam-games', async (req, res) => {
+//   const steamAPIKey = process.env.STEAM_API_KEY;
+//   console.log("Steam API Key:", steamAPIKey);
+//   const API_URL = `https://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=${steamAPIKey}&format=json`;
+
+//   try {
+//     const response = await fetch(API_URL);
+
+//     if (!response.ok) {
+//       const errorDetails = await response.text(); 
+//       throw new Error(`Steam API request failed: ${response.status} - ${errorDetails}`);
+//     }
+
+//     const data = await response.json();
+//     res.json(data);
+//   } catch (error) {
+//     console.error("Error fetching Steam games:", error);
+//     res.status(500).send(`Error fetching Steam games: ${error.message}`);
+//   }
+// });
+
+app.get('/api/game-deals', async (req, res) => {
+  const gameTitle = req.query.title;
+
+  if (!gameTitle) {
+    return res.status(400).json({ error: 'Game title is required' });
+  }
+
+  const API_URL = `https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(gameTitle)}`;
 
   try {
     const response = await fetch(API_URL);
 
     if (!response.ok) {
-      const errorDetails = await response.text(); 
-      throw new Error(`Steam API request failed: ${response.status} - ${errorDetails}`);
+      const errorDetails = await response.text();
+      throw new Error(`CheapShark API request failed: ${response.status} - ${errorDetails}`);
     }
 
     const data = await response.json();
     res.json(data);
   } catch (error) {
-    console.error("Error fetching Steam games:", error);
-    res.status(500).send(`Error fetching Steam games: ${error.message}`);
+    console.error("Error fetching game deals:", error);
+    res.status(500).json({
+      error: 'Error fetching game deals',
+      details: error.message
+    });
   }
 });
 
