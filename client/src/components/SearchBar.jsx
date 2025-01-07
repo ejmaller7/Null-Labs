@@ -18,7 +18,6 @@ function SearchBar({ onSearch }) {
 
   return (
     <form onSubmit={handleSearchSubmit} className="search-container">
-      <label htmlFor="search">Search</label>
       <input
         id="search"
         type="text"

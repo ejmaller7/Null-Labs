@@ -7,6 +7,16 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
   position: relative;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  0% {
+      box-shadow: 0 0 5px rgba(240, 240, 240, 0.4), 0 0 20px rgba(240, 240, 240, 0.4);
+  }
+  100% {
+      box-shadow: 0 0 20px rgba(240, 240, 240, 0.4), 0 0 30px rgba(240, 240, 240, 0.4); 
+  }
 }
 
 .featured-games-title {
