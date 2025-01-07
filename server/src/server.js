@@ -31,10 +31,10 @@ app.use(cors({ origin: ['http://localhost:5173', 'https://null-labs-frontend.onr
 app.use(express.json());
 
 app.post('/api/create-account', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
   
     //test
-    console.log('Received request:', { email, password });
+    console.log('Received request:', { email, password, username });
 
     try {
       // hash the password
@@ -42,8 +42,8 @@ app.post('/api/create-account', async (req, res) => {
   
       // add user to profile_db
       const result = await pool.query(
-        'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id',
-        [email, hashedPassword]
+        'INSERT INTO users (email, password, username) VALUES ($1, $2, $3) RETURNING id',
+        [email, hashedPassword, username]
       );
   
       res.status(201).json({ message: 'Account created', userId: result.rows[0].id });
