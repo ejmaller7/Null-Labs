@@ -8,7 +8,6 @@ import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
 import Wishlist from "./components/Wishlist";
 import Footer from './components/Footer';
-import SearchBar from "./components/SearchBar";
 
 const App = () => {
   const [games, setGames] = useState([]);
@@ -37,7 +36,7 @@ const App = () => {
     fetchGames();
   }, []);
 
- (loading) return <p>Loading games...</p>;
+  if (loading) return <p>Loading games...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -56,17 +55,4 @@ const App = () => {
   );
 };
 
-function SearchBar() {
-  const handleSearch = (searchTerm) => {
-    // Perform your search logic here
-    console.log("Searching for:", searchTerm);
-  };
-
-  return (
-    <div>
-      <SearchBar onSearch={handleSearch} />
-      {/* Rest of your app's content */}
-    </div>
-  );
-}
 export default App;

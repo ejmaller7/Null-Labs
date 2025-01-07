@@ -1,5 +1,3 @@
-import SearchBar from "./SearchBar";
-
 const DealOfTheWeek = ({ game }) => {
   const styles = {
     container: {

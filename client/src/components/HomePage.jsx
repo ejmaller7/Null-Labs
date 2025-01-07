@@ -1,6 +1,5 @@
 import DealOfTheWeek from "./DealOfTheWeek";
 import FeaturedGames from "./FeaturedGames";
-import SearchBar from "./SearchBar";
 
 const HomePage = ({ games }) => {
   const dealOfTheWeek = games[0];
@@ -10,7 +9,6 @@ const HomePage = ({ games }) => {
     <div>
       {dealOfTheWeek && <DealOfTheWeek game={dealOfTheWeek} />}
       <FeaturedGames games={featuredGames} />
-      <SearchBar/>
     </div>
    )
 

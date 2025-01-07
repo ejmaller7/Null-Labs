@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Logo from '../assets/images/NullLabsLogo2.png';
-import './NavBar.css'
+import SearchBar from './SearchBar';
+import './NavBar.css';
 
 const NavBar = () => {
     const [isHovered, setIsHovered] = useState(false); 
@@ -65,9 +66,12 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </nav>
-            </header> 
+                <div>
+                  <SearchBar onSearch={(term) => console.log("Search term:", term)} />
+                </div>
+            </header>
         </div>
-    )
-}
+    );
+};
 
 export default NavBar;

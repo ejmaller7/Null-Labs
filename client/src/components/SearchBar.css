@@ -1,4 +1,4 @@
-.search-bar-container {
+.search-container {
   width: 100%;
   max-width: 200px;
   margin: 50px auto;
@@ -8,22 +8,22 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);;
 }
 
-.search-bar-container h2{
+.search-container h2{
   text-align: center;
   margin-bottom: 20px;
 }
 
-.search-bar-container form div {
+.search-container form div {
   margin-bottom: 15px;
 }
 
-.search-bar-container label {
+.search-container label {
   display:block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.search-bar-container input {
+.search-container input {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
@@ -31,7 +31,7 @@
   border-radius: 4px;
 }
 
-.search-bar-container button  {
+.search-container button  {
   width: 100%;
   padding: 10px;
   font-size: 1.1rem;
@@ -42,6 +42,6 @@
   cursor: pointer;
 }
 
-.search-bar-container button:hover {
+.search-container button:hover {
   background-color: #555;
 }
