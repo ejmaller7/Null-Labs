@@ -10,8 +10,11 @@ import fetch from 'node-fetch';
 // import React from 'react';
 
 
-dotenv.config();
-console.log('STEAM_API_KEY:', process.env.STEAM_API_KEY);
+dotenv.config({path: '../.env'});
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_USER:', process.env.DB_USER);
+console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -19,11 +22,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT || 5432, 
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
 });
 
 app.use(cors({ origin: ['http://localhost:5173', 'https://null-labs-frontend.onrender.com'] }));
