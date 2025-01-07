@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css'
 import NavBar from './components/NavBar';
 import HomePage from "./components/HomePage";
 import CategoryPage from "./components/CategoryPage";

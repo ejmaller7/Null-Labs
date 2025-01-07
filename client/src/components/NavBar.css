@@ -91,7 +91,41 @@
     color: #ff6347;  
   }
     
+  .category-dropdown {
+    position: relative;
+  }
   
+  .dropdown-menu {
+    position: absolute;
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    z-index: 1;
+    text-align: center;
+  }
+  
+  .dropdown-menu a {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .dropdown-menu a:hover {
+    color: #ff6347;
+    background-color: #333;
+  }
+
 @media (max-width: 768px) {
   .header {
     align-items: center;

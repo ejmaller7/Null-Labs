@@ -5,6 +5,7 @@ import './NavBar.css'
 
 const NavBar = () => {
     const [isHovered, setIsHovered] = useState(false); 
+    const [isCategoryHovered, setIsCategoryHovered] = useState(false);
     const [isSignedIn, setIsSignedIn] = useState(false); 
     const navigate = useNavigate();
 
@@ -33,14 +34,25 @@ const NavBar = () => {
                         <li>
                             <Link to="/" className="header__link">Home</Link>
                         </li>
-                        <li>
-                            <Link to="/category/action" className="header__link">Action</Link>
-                        </li>
-                        <li>
-                            <Link to="/category/rpg" className="header__link">RPG</Link>
-                        </li>
-                        <li>
-                          <Link to="/category/strategy" className="header__link">Strategy</Link>
+                        <li
+                          className="category-dropdown"
+                          onMouseEnter={() => setIsCategoryHovered(true)}
+                          onMouseLeave={() => setIsCategoryHovered(false)}
+                        >
+                          <span className="header__link">Category</span>
+                          {isCategoryHovered && (
+                            <ul className="dropdown-menu">
+                              <li>
+                                <Link to="/category/action" className="dropdown-item">Action</Link>
+                              </li>
+                              <li>
+                                <Link to="/category/rpg" className="dropdown-item">RPG</Link>
+                              </li>
+                              <li>
+                                <Link to="/category/strategy" className="dropdown-item">Strategy</Link>
+                              </li>
+                            </ul>
+                          )}
                         </li>
                         <li
                           onMouseEnter={() => setIsHovered(true)}
