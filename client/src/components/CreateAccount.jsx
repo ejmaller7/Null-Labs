@@ -8,7 +8,7 @@ const CreateAccount = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,12 +19,12 @@ const CreateAccount = () => {
       return;
     }
 
-  //   const apiUrl = process.env.NODE_ENV === 'production' 
-  // ? 'https://null-labs-oejq.onrender.com/api/create-account' 
-  // : 'http://localhost:4000/api/create-account';
+    const apiUrl = process.env.NODE_ENV === 'production' 
+  ? 'https://null-labs-oejq.onrender.com/api/create-account' 
+  : 'http://localhost:4000/api/create-account';
 
     try {
-        const response = await fetch('https://null-labs-oejq.onrender.com/api/create-account', {
+        const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -43,6 +43,8 @@ const CreateAccount = () => {
           setPassword('');
           setConfirmPassword('');
           setError(''); 
+
+          navigate('/')
         } else {
           const errorData = await response.json();
           setError(errorData.message || 'Failed to create account');

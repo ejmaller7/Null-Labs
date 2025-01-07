@@ -7,7 +7,7 @@ const { Pool } = pkg;
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
-import React from 'react';
+// import React from 'react';
 
 
 dotenv.config();
@@ -87,22 +87,3 @@ app.get('*', (_req, res) => {
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });
-
-function SearchBar() {
-  const [filteredData, setFilteredData] = useState(data); // Assuming you have your data here
-
-  const handleSearch = (searchTerm) => {
-    // Filter your data based on searchTerm
-    const filtered = data.filter((item) => 
-      item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredData(filtered);
-  };
-
-  return (
-    <div>
-      <SearchBar data={data} onSearch={handleSearch} />
-      {/* Display the filteredData */}
-    </div>
-  );
-}
