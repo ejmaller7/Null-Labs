@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import GameCard from "./GameCard";
+import SearchBar from "./SearchBar";
 
 const CategoryPage = ({ games }) => {
   const { category } = useParams();

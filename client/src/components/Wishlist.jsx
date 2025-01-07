@@ -1,3 +1,5 @@
+import SearchBar from "./SearchBar";
+
 const Wishlist = () => {
   
 };  

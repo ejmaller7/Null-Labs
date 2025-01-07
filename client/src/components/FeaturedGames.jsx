@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import GameCard from "./GameCard";
+import SearchBar from "./SearchBar";
 
 const FeaturedGames = ({ games }) => {
   const styles = {
