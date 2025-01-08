@@ -100,31 +100,35 @@ app.post('/api/sign-in', async (req, res) => {
 
 app.get('/api/game-deals', async (req, res) => {
   const gameTitle = req.query.title;
-
+  
   if (!gameTitle) {
     return res.status(400).json({ error: 'Game title is required' });
   }
 
-  const API_URL = `https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(gameTitle)}`;
-
   try {
-    const response = await fetch(API_URL);
-
+    // Set proper headers for CORS if needed
+    res.header('Content-Type', 'application/json');
+    
+    const response = await fetch(`https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(searchTerm.trim())}`);
+    
     if (!response.ok) {
-      const errorDetails = await response.text();
-      throw new Error(`CheapShark API request failed: ${response.status} - ${errorDetails}`);
+      throw new Error(`CheapShark API responded with status: ${response.status}`);
     }
 
     const data = await response.json();
+    
+    // Ensure we're sending a proper JSON response
     res.json(data);
+    
   } catch (error) {
-    console.error("Error fetching game deals:", error);
-    res.status(500).json({
-      error: 'Error fetching game deals',
-      details: error.message
+    console.error('Server Error:', error);
+    res.status(500).json({ 
+      error: 'Failed to fetch games',
+      details: error.message 
     });
   }
 });
+
 
 app.use(express.static(path.join(__dirname, '../../client/dist')));
 
