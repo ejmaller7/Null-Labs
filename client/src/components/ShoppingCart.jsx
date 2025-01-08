@@ -19,7 +19,7 @@ const ShoppingCart = () => {
         setGamesItems([...gameItems, { ...item, quantity: 1}]);
     }
   }
-};
+
 
 return (
     <div>
@@ -40,6 +40,7 @@ return (
       </button>
     </div>
   );
+};
 
 
 export default ShoppingCart;
