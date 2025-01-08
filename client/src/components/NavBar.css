@@ -75,7 +75,10 @@
     flex-direction: column;
     gap: 10px;
     z-index: 1;
+    list-style: none;
+    text-align: center;
   }
+
   
   .profile-dropdown a, .profile-dropdown button {
     color: white;
@@ -124,6 +127,30 @@
   .dropdown-menu a:hover {
     color: #ff6347;
     background-color: #333;
+  }
+
+  .welcome-message {
+    color: white;
+    font-size: 1.2rem; 
+    font-weight: bold;
+    margin-top: 35px;
+    padding: 5px 10px;
+    border-radius: 5px; 
+    display: inline-block;
+    text-align: center; 
+    animation: bounce 1s ease-in-out;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: scale(0.5);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 
 @media (max-width: 768px) {

@@ -57,6 +57,26 @@ app.post('/api/create-account', async (req, res) => {
     }
 });
 
+app.post('/api/sign-in', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Fetch user from the database
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    const user = result.rows[0];
+
+    // Check if user exists and validate password
+    if (user && (await bcrypt.compare(password, user.password))) {
+      res.status(200).json({ message: 'Sign-in successful', userId: user.id, username: user.username });
+    } else {
+      res.status(401).json({ message: 'Invalid email or password' });
+    }
+  } catch (error) {
+    console.error('Error during sign-in:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // app.get('/api/steam-games', async (req, res) => {
 //   const steamAPIKey = process.env.STEAM_API_KEY;
 //   console.log("Steam API Key:", steamAPIKey);
