@@ -14,7 +14,7 @@ const SignIn = () => {
     event.preventDefault();
 
     const apiUrl = process.env.NODE_ENV === 'production'
-      ? 'https://null-labs-oejq.onrender.com/api/create-account'
+      ? 'https://null-labs-oejq.onrender.com/api/sign-in'
       : 'http://localhost:4000/api/sign-in';
 
     try {
