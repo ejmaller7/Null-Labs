@@ -14,6 +14,7 @@ const CategoryPage = ({ games }) => {
       textTransform: "capitalize",
       fontSize: "24px",
       fontWeight: "bold",
+      color: "white"
     },
     grid: {
       display: "grid",
@@ -21,6 +22,14 @@ const CategoryPage = ({ games }) => {
       gap: "20px",
       justifyContent: "center",
     },
+
+    nogames: {
+      textAlign: "center",
+      color: "white",
+      marginTop: "20px",
+      marginBottom: "20px",
+      fontSize: "18px",
+    }
   };
 
   // Filter games based on category
@@ -29,7 +38,7 @@ const CategoryPage = ({ games }) => {
   );
 
   if (filteredGames.length === 0) {
-    return <p style={{ textAlign: "center" }}>No games found in the "{category}" category.</p>;
+    return <p style={styles.nogames}>No games found in the "{category}" category.</p>;
   }
 
   return (
