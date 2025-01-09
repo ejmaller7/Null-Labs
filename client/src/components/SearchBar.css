@@ -10,7 +10,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   gap: 20px;
   margin-top: 30px;
-  animation: glow2 1.5s ease-in-out infinite alternate;
+  animation: glow3 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
@@ -58,4 +58,13 @@
 
 .search-container button:hover {
   background-color: #777;
+}
+
+@keyframes glow3 {
+  0% {
+    box-shadow: 0 0 5px rgba(240, 240, 240, 0.125), 0 0 20px rgba(240, 240, 240, 0.125);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(240, 240, 240, 0.125), 0 0 30px rgba(240, 240, 240, 0.125); 
+  }
 }

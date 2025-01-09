@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './SearchBar.css'
 
 const GameSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');

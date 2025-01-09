@@ -6,7 +6,7 @@
   background-color: #333; 
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
-  animation: glow2 1.5s ease-in-out infinite alternate;
+  animation: glow3 1.5s ease-in-out infinite alternate;
 }
 
 .create-account-container h2 {

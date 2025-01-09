@@ -1,0 +1,139 @@
+.profile-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-align: center;
+    animation: glow2 1.5s ease-in-out infinite alternate;
+  }
+  
+  .profile-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .profile-container p {
+    margin-bottom: 20px;
+  }
+  
+  .profile-pic-section {
+    margin-top: 20px;
+  }
+  
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid #555;
+  }
+  
+  .profile-pic-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 10px;
+  }
+  
+  /* .file-input {
+    margin-top: 10px;
+    color: white;
+  } */
+
+  .file-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .file-input-hidden {
+    display: none;
+  }
+  
+  .file-input-label {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #555;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+  
+  .file-input-label:hover {
+    background-color: #777;
+  }
+  
+  .file-chosen-text {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: white;
+    text-align: center;
+  }
+  
+  .save-button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .save-button:hover {
+    background-color: #777;
+  }
+  
+  .no-user-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    animation: glow3 1.5s ease-in-out infinite alternate;
+    text-align: center;
+  }
+  
+  .no-user-container h2 {
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .no-user-container p {
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  .auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .auth-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .auth-button:hover {
+    background-color: #777;
+  }

@@ -31,7 +31,7 @@ const NavBar = () => {
             onMouseEnter={() => setIsCategoryHovered(true)}
             onMouseLeave={() => setIsCategoryHovered(false)}
           >
-            <span className="header__link">Category</span>
+            <Link to="/category" className="header__link">Category</Link>
             {isCategoryHovered && (
               <ul className="dropdown-menu">
                 <li>
@@ -51,7 +51,7 @@ const NavBar = () => {
             onMouseEnter={() => setIsProfileHovered(true)}
             onMouseLeave={() => setIsProfileHovered(false)}
           >
-            <span className="header__link">Profile</span>
+            <Link to="/profile" className="header__link">Profile</Link>
             {isProfileHovered && (
               <ul className="profile-dropdown">
                 {user ? (
