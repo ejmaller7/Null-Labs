@@ -76,6 +76,9 @@ const NavBar = () => {
               </ul>
             )}
           </li>
+          <li>
+            <Link to="/shoppingcart" className="header__link">Shopping Cart</Link>
+            </li>
         </ul>
       </nav>
       {user && <div className="welcome-message">Welcome, {user.username}!</div>}

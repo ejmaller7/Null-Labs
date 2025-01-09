@@ -51,7 +51,7 @@ const App = () => {
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/ShoppingCart" element={<ShoppingCart />} />
+        <Route path="/shoppingCart" element={<ShoppingCart />} />
       </Routes>
       <Footer />
     </Router>
