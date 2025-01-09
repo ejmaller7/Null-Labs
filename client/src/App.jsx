@@ -45,6 +45,7 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage games={games} />} /> {/* Pass games to HomePage */}
+        <Route path="/category" element={<CategoryPage games={games} />} />
         <Route path="/category/:category" element={<CategoryPage games={games} />} /> {/* Pass games to CategoryPage */}
         <Route path="/signin" element={<SignIn />} />
         <Route path="/createaccount" element={<CreateAccount />} />

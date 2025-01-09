@@ -62,9 +62,9 @@
 
 @keyframes glow3 {
   0% {
-    box-shadow: 0 0 5px rgba(240, 240, 240, 0.125), 0 0 20px rgba(240, 240, 240, 0.125);
+    box-shadow: 0 0 5px rgba(240, 240, 240, 0.1), 0 0 20px rgba(240, 240, 240, 0.1);
   }
   100% {
-    box-shadow: 0 0 20px rgba(240, 240, 240, 0.125), 0 0 30px rgba(240, 240, 240, 0.125); 
+    box-shadow: 0 0 20px rgba(240, 240, 240, 0.1), 0 0 30px rgba(240, 240, 240, 0.1); 
   }
 }
