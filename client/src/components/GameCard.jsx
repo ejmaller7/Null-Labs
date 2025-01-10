@@ -1,7 +1,6 @@
 import "./GameCard.css";
 
 const GameCard = ({ game }) => {
-  const price = (Math.random() * (60 - 10) + 10).toFixed(2);
 
   return (
     <div className="game-card">
@@ -10,7 +9,6 @@ const GameCard = ({ game }) => {
       <div className="game-info">
         <p className="game-released">Released: {game.released}</p>
         <p className="game-rating">Rating: {game.rating}</p>
-        <p className="game-price">Price: ${price}</p>
       </div>
     </div>
   );
