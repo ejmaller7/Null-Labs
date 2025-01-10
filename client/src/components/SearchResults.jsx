@@ -1,3 +1,4 @@
+// components/Search/SearchResults.jsx
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 
@@ -14,7 +15,7 @@ const SearchResults = () => {
       padding: '20px',
       maxWidth: '1200px',
       margin: '0 auto',
-      minHeight: 'calc(100vh - 200px)', // Account for NavBar and Footer
+      minHeight: 'calc(100vh - 200px)',
     },
     header: {
       display: 'flex',
@@ -43,6 +44,14 @@ const SearchResults = () => {
       padding: '15px',
       color: 'white',
       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+      cursor: 'pointer',
+      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+      textDecoration: 'none',
+      display: 'block',
+    },
+    cardHover: {
+      transform: 'translateY(-5px)',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
     },
     cardContent: {
       display: 'flex',
@@ -75,6 +84,15 @@ const SearchResults = () => {
       backgroundColor: '#444',
       borderRadius: '4px',
     },
+    viewDeal: {
+      display: 'inline-block',
+      marginTop: '10px',
+      padding: '4px 8px',
+      backgroundColor: '#4CAF50',
+      color: 'white',
+      borderRadius: '4px',
+      fontSize: '0.9rem',
+    }
   };
 
   useEffect(() => {
@@ -112,6 +130,10 @@ const SearchResults = () => {
     fetchGames();
   }, [searchTerm]);
 
+  const handleDealClick = (dealID) => {
+    window.open(`https://www.cheapshark.com/redirect?dealID=${dealID}`, '_blank');
+  };
+
   if (!searchTerm) {
     return (
       <div style={resultStyles.container}>
@@ -138,7 +160,19 @@ const SearchResults = () => {
 
       <div style={resultStyles.grid}>
         {searchResults.map((game) => (
-          <div key={game.gameID} style={resultStyles.card}>
+          <div
+            key={game.gameID}
+            style={resultStyles.card}
+            onClick={() => handleDealClick(game.cheapestDealID)}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'none';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
+            }}
+          >
             <div style={resultStyles.cardContent}>
               {game.thumb && (
                 <img 
@@ -159,6 +193,7 @@ const SearchResults = () => {
                     </span>
                   )}
                 </div>
+                <div style={resultStyles.viewDeal}>View Deal →</div>
               </div>
             </div>
           </div>
