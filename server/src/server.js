@@ -30,8 +30,10 @@ app.use(cors({ origin: ['http://localhost:5173', 'https://null-labs-frontend.onr
 
 app.use(express.json());
 
+// Create Account Route
 app.post('/api/create-account', async (req, res) => {
     const { email, password, username } = req.body;
+    console.log('Received request to update profile pic:', { profilePic, userId });
   
     //test
     console.log('Received request:', { email, password, username });
@@ -57,6 +59,7 @@ app.post('/api/create-account', async (req, res) => {
     }
 });
 
+// Sign-In Route
 app.post('/api/sign-in', async (req, res) => {
   const { email, password } = req.body;
 
@@ -67,13 +70,59 @@ app.post('/api/sign-in', async (req, res) => {
 
     // Check if user exists and validate password
     if (user && (await bcrypt.compare(password, user.password))) {
-      res.status(200).json({ message: 'Sign-in successful', userId: user.id, username: user.username });
+      res.status(200).json({ message: 'Sign-in successful', userId: user.id, username: user.username, profilePic: user.profile_pic || 'default-pic-url' });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
     }
   } catch (error) {
     console.error('Error during sign-in:', error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/api/update-profile-pic', async (req, res) => {
+  const { profilePic, userId } = req.body;
+
+  try {
+    // Start a database query using the pool
+    const result = await pool.query(
+      'UPDATE users SET profile_pic = $1 WHERE id = $2 RETURNING profile_pic',
+      [profilePic, userId] // Pass values for placeholders ($1, $2)
+    );
+
+    // Check if the update was successful
+    if (result.rows.length > 0) {
+      res.json({
+        message: 'Profile picture updated successfully!',
+        profile_pic: result.rows[0].profile_pic,
+      });
+    } else {
+      res.status(400).json({ message: 'Failed to update profile picture' });
+    }
+  } catch (error) {
+    console.error('Error updating profile picture:', error);
+    res.status(500).json({ message: 'Error updating profile picture' });
+  }
+});
+
+app.get('/api/get-user-profile', async (req, res) => {
+  const userId = req.query.userId;
+
+  try {
+    const result = await pool.query(
+      'SELECT profile_pic FROM users WHERE id = $1',
+      [userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const { profile_pic } = result.rows[0];
+    res.json({ profile_pic });
+  } catch (error) {
+    console.error('Error fetching user profile:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

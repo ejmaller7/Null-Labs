@@ -7,6 +7,7 @@ import './NavBar.css';
 
 const NavBar = () => {
   const { user, logOut } = useUser();
+  console.log("nav:", user)
   const navigate = useNavigate();
   const [isCategoryHovered, setIsCategoryHovered] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);  
@@ -32,19 +33,6 @@ const NavBar = () => {
             onMouseLeave={() => setIsCategoryHovered(false)}
           >
             <Link to="/category" className="header__link">Category</Link>
-            {isCategoryHovered && (
-              <ul className="dropdown-menu">
-                <li>
-                  <Link to="/category/action" className="dropdown-item">Action</Link>
-                </li>
-                <li>
-                  <Link to="/category/rpg" className="dropdown-item">RPG</Link>
-                </li>
-                <li>
-                  <Link to="/category/strategy" className="dropdown-item">Strategy</Link>
-                </li>
-              </ul>
-            )}
           </li>
 
           <li
@@ -82,6 +70,7 @@ const NavBar = () => {
         </ul>
       </nav>
       {user && <div className="welcome-message">Welcome, {user.username}!</div>}
+
       <div>
         <SearchBar onSearch={(term) => console.log("Search term:", term)} />
       </div>
