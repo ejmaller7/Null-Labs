@@ -41,7 +41,7 @@ const Profile = () => {
           console.log(data);
 
           if (data.profile_pic) {
-            setProfilePic(data.profile_pic);  // Update profile picture if available
+            setProfilePic(data.profile_pic);  
           }
         } catch (error) {
           console.error('Error fetching profile picture:', error);
@@ -83,7 +83,7 @@ const Profile = () => {
       console.log('Server response', data);
 
       if (data.message === 'Profile picture updated successfully!') {
-        setProfilePic(selectedPic); // Update the profile picture in the frontend
+        setProfilePic(selectedPic); 
         setShowGallery(false);
         alert('Profile picture updated successfully');
       } else {
