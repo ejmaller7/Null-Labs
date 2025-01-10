@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import Wishlist from "./components/Wishlist";
 import Footer from './components/Footer';
 import ShoppingCart from "./components/ShoppingCart";
+import SearchResults from './components/SearchResults';
 
 const App = () => {
   const [games, setGames] = useState([]);
@@ -52,6 +53,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/shoppingCart" element={<ShoppingCart />} />
+        <Route path="/search-results" element={<SearchResults />} />
       </Routes>
       <Footer />
     </Router>
