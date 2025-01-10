@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import GameCard from "./GameCard";
 import "./FeaturedGames.css";
 
-const FeaturedGames = ({ games }) => {
+const FeaturedGames = ({ games, addToWishlist }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const gamesPerPage = 10;
   const totalPages = Math.ceil(games.length / gamesPerPage);
@@ -41,7 +41,7 @@ const FeaturedGames = ({ games }) => {
       </button>
       <div className="slider" ref={sliderRef}>
         {paginatedGames.map((game) => (
-          <GameCard key={game.id} game={game} />
+          <GameCard key={game.id} game={game} addToWishlist={addToWishlist} />
         ))}
       </div>
       <button
