@@ -15,6 +15,17 @@ const App = () => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [wishlist, setWishlist] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const addToWishlist = (game) => {
+    if (!wishlist.some((item) => item.id === game.id)) {
+      setWishlist([...wishlist, game]);
+      alert(`${game.name} has been added to your wishlist.`);
+    } else {
+      alert(`${game.name} is already in your wishlist.`);
+    }
+  };
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -45,13 +56,13 @@ const App = () => {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage games={games} />} /> {/* Pass games to HomePage */}
+        <Route path="/" element={<HomePage games={games} addToWishlist={addToWishlist} />} /> {/* Pass games to HomePage */}
         <Route path="/category" element={<CategoryPage games={games} />} />
         <Route path="/category/:category" element={<CategoryPage games={games} />} /> {/* Pass games to CategoryPage */}
         <Route path="/signin" element={<SignIn />} />
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/wishlist" element={<Wishlist wishlist={wishlist} isAuthenticated={isAuthenticated} />} />
         <Route path="/shoppingCart" element={<ShoppingCart />} />
         <Route path="/search-results" element={<SearchResults />} />
       </Routes>
