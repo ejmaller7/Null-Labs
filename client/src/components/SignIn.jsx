@@ -10,14 +10,16 @@ const SignIn = () => {
   const { user, logIn } = useUser();
   const navigate = useNavigate();
 
+  // Function to handle sign-in form submission
   const handleSignIn = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission behavior
 
     const apiUrl = process.env.NODE_ENV === 'production'
       ? 'https://null-labs-oejq.onrender.com/api/sign-in'
       : 'http://localhost:4000/api/sign-in';
 
     try {
+      // Sending POST request to the server with email and password
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,14 +27,14 @@ const SignIn = () => {
       });
 
       if (response.ok) {
+        // If sign-in is successful, log in the user and redirect to home page
         const data = await response.json();
-        logIn(data);
+        logIn(data); // Save the user data to context
         navigate('/');
 
       } else {
         const errorData = await response.json();
         setError(errorData.message || 'Sign-in failed');
-        // setSuccess('');
       }
     } catch (error) {
       console.error('Error during sign-in:', error);

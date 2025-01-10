@@ -19,6 +19,7 @@ const CreateAccount = () => {
       setError('Passwords do not match');
       return;
     }
+    console.log(email, password, username)
 
     const apiUrl = process.env.NODE_ENV === 'production' 
   ? 'https://null-labs-oejq.onrender.com/api/create-account' 

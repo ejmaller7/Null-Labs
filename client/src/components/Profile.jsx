@@ -10,6 +10,7 @@ const Profile = () => {
   const [profilePic, setProfilePic] = useState(user?.profile_pic || ''); 
   const [showGallery, setShowGallery] = useState(false);
 
+   // Sample profile pictures for selection
   const profilePics = [
     'https://cdnb.artstation.com/p/assets/images/images/019/525/577/large/j-j-adx-illustration2.jpg?1563889037',
     'https://marketplace.canva.com/EAFGTFnp6Ao/4/0/1600w/canva-orange-pixel-game-controller-twitch-logo-0o_UWEjzvz4.jpg',
@@ -36,10 +37,12 @@ const Profile = () => {
         `API URL: ${apiUrl}?userId=${user.userId}`
 
         try {
+          // Fetch user's profile picture from the server
           const response = await fetch(`${apiUrl}?userId=${user.userId}`);
           const data = await response.json();
           console.log(data);
 
+          // Update the profile picture state if fetched
           if (data.profile_pic) {
             setProfilePic(data.profile_pic);  
           }
@@ -52,9 +55,9 @@ const Profile = () => {
     fetchProfilePic();
   }, [user]);
 
+  // Handle selection of a new profile picture from the gallery
   const handleProfilePicSelect = async (selectedPic) => {
     const userId = user.userId;
-
 
     console.log('Selected Pic:', selectedPic);
     console.log('User ID:', userId);
@@ -64,6 +67,7 @@ const Profile = () => {
     : 'http://localhost:4000/api/update-profile-pic';
 
     try {
+      // Send POST request to update the profile picture on the server
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -82,6 +86,7 @@ const Profile = () => {
       const data = await response.json();
       console.log('Server response', data);
 
+      // Update the profile picture if the server responds with success
       if (data.message === 'Profile picture updated successfully!') {
         setProfilePic(selectedPic); 
         setShowGallery(false);
@@ -95,6 +100,7 @@ const Profile = () => {
     }
   };
 
+  // If no user is signed in, show sign-in or create account options
   if (!user) {
     return (
       <div className="no-user-container">

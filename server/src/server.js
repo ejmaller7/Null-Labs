@@ -2,8 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
-import pkg from 'pg'; 
-const { Pool } = pkg;
+import { sequelize, User } from './models/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
@@ -11,29 +10,22 @@ import fetch from 'node-fetch';
 
 
 dotenv.config({path: '../.env'});
-console.log('DB_HOST:', process.env.DB_HOST);
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
-console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
 const app = express();
 const port = process.env.PORT || 4000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-});
-
 app.use(cors({ origin: ['http://localhost:5173', 'https://null-labs-frontend.onrender.com'] }));
 
 app.use(express.json());
 
-// Create Account Route
+// POST route to create a new user account
+// This route receives user data (email, password, and username), hashes the password, 
+// and then stores the user information in the database.
 app.post('/api/create-account', async (req, res) => {
     const { email, password, username } = req.body;
-    console.log('Received request to update profile pic:', { profilePic, userId });
+    console.log(email, password, username);
   
     //test
     console.log('Received request:', { email, password, username });
@@ -43,14 +35,15 @@ app.post('/api/create-account', async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 10);
   
       // add user to profile_db
-      const result = await pool.query(
-        'INSERT INTO users (email, password, username) VALUES ($1, $2, $3) RETURNING id',
-        [email, hashedPassword, username]
-      );
+      const user = await User.create({
+        email,
+        password: hashedPassword,
+        username,
+      });
   
-      res.status(201).json({ message: 'Account created', userId: result.rows[0].id });
+      res.status(201).json({ message: 'Account created', userId: user.id });
     } catch (error) {
-      if (error.code === '23505') {
+      if (error.name === 'SequelizeUniqueConstraintError') {
         res.status(400).json({ message: 'Email already exists' });
       } else {
         console.error(error);
@@ -59,16 +52,17 @@ app.post('/api/create-account', async (req, res) => {
     }
 });
 
-// Sign-In Route
+// POST route for user sign-in
+// This route validates the user's credentials (email and password) 
+// and returns the user's data if the credentials are correct.
 app.post('/api/sign-in', async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
 
   try {
-    // Fetch user from the database
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-    const user = result.rows[0];
+    const user = await User.findOne({ where: { email } });
+    console.log(user)
 
-    // Check if user exists and validate password
     if (user && (await bcrypt.compare(password, user.password))) {
       res.status(200).json({ message: 'Sign-in successful', userId: user.id, username: user.username, profilePic: user.profile_pic || 'default-pic-url' });
     } else {
@@ -80,21 +74,24 @@ app.post('/api/sign-in', async (req, res) => {
   }
 });
 
+// POST route to update user profile picture
+// This route receives a new profile picture URL and updates the user profile accordingly.
 app.post('/api/update-profile-pic', async (req, res) => {
+  console.log('Sign-in route hit');
   const { profilePic, userId } = req.body;
 
   try {
-    // Start a database query using the pool
-    const result = await pool.query(
-      'UPDATE users SET profile_pic = $1 WHERE id = $2 RETURNING profile_pic',
-      [profilePic, userId] // Pass values for placeholders ($1, $2)
+    // Update the profile picture using Sequelize
+    const [updated] = await User.update(
+      { profile_pic: profilePic },
+      { where: { id: userId } }
     );
 
-    // Check if the update was successful
-    if (result.rows.length > 0) {
+    if (updated) {
+      const user = await User.findByPk(userId);
       res.json({
         message: 'Profile picture updated successfully!',
-        profile_pic: result.rows[0].profile_pic,
+        profile_pic: user.profile_pic,
       });
     } else {
       res.status(400).json({ message: 'Failed to update profile picture' });
@@ -105,21 +102,19 @@ app.post('/api/update-profile-pic', async (req, res) => {
   }
 });
 
+// GET route to fetch user profile information
+// This route returns the profile picture of a user based on the user ID provided in the query parameters.
 app.get('/api/get-user-profile', async (req, res) => {
   const userId = req.query.userId;
 
   try {
-    const result = await pool.query(
-      'SELECT profile_pic FROM users WHERE id = $1',
-      [userId]
-    );
+    const user = await User.findByPk(userId);
 
-    if (result.rows.length === 0) {
+    if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const { profile_pic } = result.rows[0];
-    res.json({ profile_pic });
+    res.json({ profile_pic: user.profile_pic });
   } catch (error) {
     console.error('Error fetching user profile:', error.message);
     res.status(500).json({ error: 'Internal server error' });
@@ -147,6 +142,8 @@ app.get('/api/get-user-profile', async (req, res) => {
 //   }
 // });
 
+// GET route to fetch game deals
+// This route queries the CheapShark API for game deals based on the title provided in the query parameter.
 app.get('/api/game-deals', async (req, res) => {
   const gameTitle = req.query.title;
   
@@ -185,6 +182,14 @@ app.get('*', (_req, res) => {
     res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  try {
+    console.log('DATABASE_URL:', process.env.DATABASE_URL);
+    await sequelize.authenticate();  // Add this line to test the connection
+    console.log('Database connected successfully!');
+    await sequelize.sync({alter: true});
     console.log(`Server is listening on port ${port}`);
+  } catch (error) {
+    console.error('Error syncing Sequelize models:', error);
+  }
 });
