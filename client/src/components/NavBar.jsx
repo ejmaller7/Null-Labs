@@ -7,7 +7,6 @@ import './NavBar.css';
 
 const NavBar = () => {
   const { user, logOut } = useUser();
-  console.log("nav:", user)
   const navigate = useNavigate();
   const [isCategoryHovered, setIsCategoryHovered] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);  

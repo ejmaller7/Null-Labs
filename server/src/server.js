@@ -80,11 +80,24 @@ app.post('/api/sign-in', async (req, res) => {
 // POST route to update user profile picture
 // This route receives a new profile picture URL and updates the user profile accordingly.
 app.post('/api/update-profile-pic', async (req, res) => {
-  console.log('Sign-in route hit');
-  const { profilePic, userId } = req.body;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized: Token not provided' });
+  }
 
   try {
-    // Update the profile picture using Sequelize
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const { profilePic, userId } = req.body;
+
+    // Ensure the user ID in the token matches the one in the request body
+    if (decoded.userId !== userId) {
+      return res.status(403).json({ message: 'Forbidden: User mismatch' });
+    }
+
     const [updated] = await User.update(
       { profile_pic: profilePic },
       { where: { id: userId } }
@@ -100,7 +113,7 @@ app.post('/api/update-profile-pic', async (req, res) => {
       res.status(400).json({ message: 'Failed to update profile picture' });
     }
   } catch (error) {
-    console.error('Error updating profile picture:', error);
+    console.error('Error verifying token or updating profile picture:', error);
     res.status(500).json({ message: 'Error updating profile picture' });
   }
 });
