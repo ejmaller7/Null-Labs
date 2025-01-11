@@ -30,6 +30,10 @@ const SignIn = () => {
         // If sign-in is successful, log in the user and redirect to home page
         const data = await response.json();
         logIn(data); // Save the user data to context
+
+        // Store the token in localStorage or sessionStorage
+        localStorage.setItem('jwtToken', data.token);
+        
         navigate('/');
 
       } else {

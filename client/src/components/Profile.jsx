@@ -34,8 +34,6 @@ const Profile = () => {
           ? 'https://null-labs-oejq.onrender.com/api/get-user-profile' 
           : 'http://localhost:4000/api/get-user-profile';
 
-        `API URL: ${apiUrl}?userId=${user.userId}`
-
         try {
           // Fetch user's profile picture from the server
           const response = await fetch(`${apiUrl}?userId=${user.userId}`);

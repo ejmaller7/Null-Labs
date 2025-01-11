@@ -6,6 +6,7 @@ import { sequelize, User } from './models/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
+import jwt from 'jsonwebtoken'
 // import React from 'react';
 
 
@@ -61,10 +62,12 @@ app.post('/api/sign-in', async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { email } });
-    console.log(user)
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      res.status(200).json({ message: 'Sign-in successful', userId: user.id, username: user.username, profilePic: user.profile_pic || 'default-pic-url' });
+      // Create JWT token
+      const token = jwt.sign({ userId: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      res.status(200).json({ message: 'Sign-in successful', token, userId: user.id, username: user.username, profilePic: user.profile_pic || 'default-pic-url' });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
     }
