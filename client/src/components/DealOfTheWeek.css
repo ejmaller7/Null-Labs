@@ -1,14 +1,23 @@
 .deal-of-the-week-container {
     width: 100%;
-    max-width: 900px; 
+    max-width: 500px; 
     margin: 50px auto;
     padding: 40px;
-    background-color: #2d2d2d;
+    background-color: #242424;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     position: relative;
     color: #f4f4f4; 
     animation: float 3s ease-in-out infinite, glow 1.5s ease-in-out infinite alternate;
+    box-sizing: border-box;
+}
+
+.deal-of-the-week-container:hover {
+    background-color: #333333;
+}
+
+.deal-of-the-week-container:hover h3 {
+    transform: scale(1.2);
 }
 
 @keyframes glow {
@@ -47,11 +56,41 @@
     object-fit: cover;
     margin: 0 auto; 
     display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .deal-of-the-week-container h3, 
 .deal-of-the-week-container p {
     text-align: center; 
+    margin: 10px 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+.deal-of-the-week-container p {
+    color: #bbb;
+}
+
+.wishlist-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff9900;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.wishlist-button:hover {
+    background-color: #cc7a00;
+    transform: scale(1.05);
+}
+
+.wishlist-button:active {
+    background-color: #b36b00;
 }
 
 @media (max-width: 1500px) {
@@ -71,6 +110,7 @@
 @media (max-width: 1000px) {
     .deal-of-the-week-container {
         padding: 20px;
+        max-width: 400px;
     }
 
     .deal-of-the-week-title {
@@ -85,6 +125,7 @@
 @media (max-width: 600px) {
     .deal-of-the-week-container {
         padding: 15px;
+        max-width: 300px;
     }
 
     .deal-of-the-week-title {
@@ -93,5 +134,10 @@
 
     .deal-of-the-week-image {
         max-width: 250px;
+    }
+
+    .wishlist-button {
+        font-size: 0.9rem;
+        padding: 10px 15px;
     }
 }

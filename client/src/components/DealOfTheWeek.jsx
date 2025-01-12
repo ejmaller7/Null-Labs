@@ -1,6 +1,7 @@
-import './DealOfTheWeek.css';  // Ensure this is correctly imported
+import './DealOfTheWeek.css'; // Ensure this is correctly imported
 
-const DealOfTheWeek = ({ game }) => {
+const DealOfTheWeek = ({ game, addToWishlist }) => {
+  // Render message if no game is available
   if (!game) return <p>No deal available.</p>;
 
   return (
@@ -10,6 +11,12 @@ const DealOfTheWeek = ({ game }) => {
       <h3>{game.name}</h3>
       <p>Released: {game.released}</p>
       <p>Rating: {game.rating}</p>
+      <button 
+        className="wishlist-button" 
+        onClick={() => addToWishlist(game)} // Call the addToWishlist function with the game
+      >
+        Add to Wishlist
+      </button>
     </div>
   );
 };

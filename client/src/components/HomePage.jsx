@@ -7,7 +7,7 @@ const HomePage = ({ games, addToWishlist }) => {
 
   return (
     <div>
-      {dealOfTheWeek && <DealOfTheWeek game={dealOfTheWeek} />}
+      {dealOfTheWeek && <DealOfTheWeek game={dealOfTheWeek} addToWishlist={addToWishlist} />}
       <FeaturedGames games={featuredGames} addToWishlist={addToWishlist} />
     </div>
    )

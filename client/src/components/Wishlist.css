@@ -113,8 +113,20 @@
   .wishlist-container .wishlist-button:active {
     background-color: #b36b00;
   }
+
+  @media (max-width: 1000px) {
+      .wishlist-container {
+      max-width: 450px;
+
+      }
+   }
   
   @media (max-width: 600px) {
+    .wishlist-container {
+    max-width: 300px;
+
+    }
+
     .wishlist-container li {
       max-width: 180px;
       padding: 15px;
