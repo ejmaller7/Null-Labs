@@ -32,7 +32,7 @@ const App = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://api.rawg.io/api/games?key=${import.meta.env.VITE_RAWG_API_KEY}&page=1&page_size=100` // Fetch up to 100 games
+          `https://api.rawg.io/api/games?key=${import.meta.env.VITE_RAWG_API_KEY}&page=1&page_size=100`, // Fetch up to 100 games
         );
         if (!response.ok) {
           throw new Error("Failed to fetch games from RAWG API");

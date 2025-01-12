@@ -1,0 +1,131 @@
+.wishlist-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-align: center;
+    animation: glow3 1.5s ease-in-out infinite alternate;
+  }
+  
+  .wishlist-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .wishlist-container p {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #ff6a00;
+  }
+  
+  .wishlist-container ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .wishlist-container li {
+    width: 100%;
+    max-width: 250px;
+    padding: 20px;
+    height: auto;
+    background-color: #242424;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .wishlist-container li:hover {
+    background-color: #333333;
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+  }
+  
+  .wishlist-container img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .wishlist-container .game-title {
+    font-size: 16px;
+    margin: 10px 0;
+    font-weight: bold;
+    text-align: center;
+    color: #f4f4f4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    transition: transform 0.2s ease;
+  }
+  
+  .wishlist-container li:hover .game-title {
+    transform: scale(1.1);
+  }
+  
+  .wishlist-container .game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+  }
+  
+  .wishlist-container .game-released,
+  .wishlist-container .game-rating {
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+    color: #bbb;
+  }
+  
+  .wishlist-container .wishlist-button {
+    background-color: #ff9900;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    align-self: center;
+  }
+  
+  .wishlist-container .wishlist-button:hover {
+    background-color: #cc7a00;
+  }
+  
+  .wishlist-container .wishlist-button:active {
+    background-color: #b36b00;
+  }
+  
+  @media (max-width: 600px) {
+    .wishlist-container li {
+      max-width: 180px;
+      padding: 15px;
+    }
+  
+    .wishlist-container .game-title {
+      font-size: 14px;
+    }
+  
+    .wishlist-container .game-released,
+    .wishlist-container .game-rating {
+      font-size: 12px;
+    }
+  }
