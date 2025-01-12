@@ -11,6 +11,7 @@ const NavBar = () => {
   const [isCategoryHovered, setIsCategoryHovered] = useState(false);
   const [isProfileHovered, setIsProfileHovered] = useState(false);  
 
+  //using logOut() funtion from UserContext to clear user data
   const handleLogOut = () => {
     logOut();
     navigate('/');

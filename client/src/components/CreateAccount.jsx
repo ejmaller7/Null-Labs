@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateAccount.css'
 
+// Component to handle user account creation
 const CreateAccount = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,6 +12,7 @@ const CreateAccount = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
+  // Handles form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -26,14 +28,16 @@ const CreateAccount = () => {
   : 'http://localhost:4000/api/create-account';
 
     try {
+      // Sends POST request to the server to create the account
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password, username }),
+          body: JSON.stringify({ email, password, username }), // Sends form data as JSON
         });
     
+        // Handles server response
         if (response.ok) {
           const data = await response.json();
           console.log('Account created with ID:', data.userId);
@@ -53,6 +57,7 @@ const CreateAccount = () => {
           setError(errorData.message || 'Failed to create account');
         }
       } catch (error) {
+        // Catches and handles network or server errors
         console.error('Error creating account:', error);
         setError('Something went wrong. Please try again later.');
       }
