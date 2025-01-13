@@ -11,6 +11,7 @@ const GameCard = ({ game, addToWishlist }) => {
         <p className="game-rating">Rating: {game.rating}</p>
       </div>
       <div>
+        {/* Handles the on click, the game will then be added to the wishlist */}
         <button className="wishlist-button" onClick={() => addToWishlist(game)}>Add to Wishlist</button>
       </div>
     </div>

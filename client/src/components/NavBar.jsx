@@ -29,20 +29,21 @@ const NavBar = () => {
           </li>
           <li
             className="category-dropdown"
-            onMouseEnter={() => setIsCategoryHovered(true)}
-            onMouseLeave={() => setIsCategoryHovered(false)}
+            onMouseEnter={() => setIsCategoryHovered(true)} // Show dropdown on hover
+            onMouseLeave={() => setIsCategoryHovered(false)} // Hide dropdown on mouse leave
           >
             <Link to="/category" className="header__link">Category</Link>
           </li>
 
           <li
-            onMouseEnter={() => setIsProfileHovered(true)}
-            onMouseLeave={() => setIsProfileHovered(false)}
+            onMouseEnter={() => setIsProfileHovered(true)} // Show dropdown on hover
+            onMouseLeave={() => setIsProfileHovered(false)} // Hide dropdown on mouse leave
           >
             <Link to="/profile" className="header__link">Profile</Link>
             {isProfileHovered && (
               <ul className="profile-dropdown">
                 {user ? (
+                  // If user is logged in, show Wishlist and Logout options
                   <>
                     <li>
                       <button onClick={() => navigate('/wishlist')}>Wishlist</button>
@@ -52,6 +53,7 @@ const NavBar = () => {
                     </li>
                   </>
                 ) : (
+                  // If no user is logged in, show Sign In and Create Account options
                   <>
                     <li>
                       <button onClick={() => navigate('/signin')}>Sign In</button>
@@ -66,6 +68,7 @@ const NavBar = () => {
           </li>
         </ul>
       </nav>
+      {/* Welcome Message for Logged-In User */}
       {user && <div className="welcome-message">Welcome, {user.username}!</div>}
 
       <div>

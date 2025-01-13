@@ -3,7 +3,7 @@ import GameCard from "./GameCard";
 import "./CategoryPage.css";
 
 const CategoryPage = ({ games }) => {
-  const { category } = useParams();
+  const { category } = useParams(); // Extracts the category parameter from the URL
   const categories = ["Action", "RPG", "Strategy", "Adventure", "Sports", "Shooter", "Puzzle", "Racing"];
 
   const styles = {
@@ -33,6 +33,7 @@ const CategoryPage = ({ games }) => {
     }
   };
 
+  // Displays all categories if no specific category is selected
   if (!category) {
     return (
       <div className="container">
@@ -52,10 +53,12 @@ const CategoryPage = ({ games }) => {
     );
   }
 
+  // Filters games based on the selected category
   const filteredGames = games.filter((game) =>
     game.genres.some((genre) => genre.name.toLowerCase() === category.toLowerCase())
   );
 
+  // Displays a message if no games match the category
   if (filteredGames.length === 0) {
     return (
       <div>
@@ -64,6 +67,7 @@ const CategoryPage = ({ games }) => {
     );
   }
 
+  // Displays the filtered games
   return (
     <div style={styles.container}>
       <h2 style={styles.title}> {category} Games</h2>

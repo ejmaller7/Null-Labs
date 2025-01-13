@@ -12,7 +12,7 @@ const SearchResults = () => {
     return savedWishlist ? JSON.parse(savedWishlist) : [];
   });
 
-  const searchTerm = searchParams.get('search');
+  const searchTerm = searchParams.get('search'); // Get the search term for URL query params
 
   const resultStyles = {
 
@@ -125,6 +125,7 @@ const SearchResults = () => {
     localStorage.setItem('gameWishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
+  // Fetch games matching the search term
   useEffect(() => {
     const fetchGames = async () => {
       if (!searchTerm) return;
@@ -160,10 +161,12 @@ const SearchResults = () => {
     fetchGames();
   }, [searchTerm]);
 
+  // Open deal link in a new tab
   const handleDealClick = (dealID) => {
     window.open(`https://www.cheapshark.com/redirect?dealID=${dealID}`, '_blank');
   };
 
+  // Add a game to wishlist
   const addToWishlist = (game) => {
     const gameToAdd = {
       id: game.gameID,
@@ -183,12 +186,14 @@ const SearchResults = () => {
     }
   };
 
+  // Remove a game from the wishlist
   const removeFromWishlist = (gameId) => {
     const game = wishlist.find(item => item.id === gameId);
     setWishlist(wishlist.filter(item => item.id !== gameId));
     alert(`${game.name} has been removed from your wishlist.`);
   };
 
+  // Check to see if the game is still in the wishlist
   const isInWishlist = (gameId) => {
     return wishlist.some(item => item.id === gameId);
   };
