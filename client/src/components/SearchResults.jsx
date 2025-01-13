@@ -1,4 +1,3 @@
-// components/Search/SearchResults.jsx
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 
@@ -7,10 +6,16 @@ const SearchResults = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [wishlist, setWishlist] = useState(() => {
+    // Initialize wishlist from localStorage
+    const savedWishlist = localStorage.getItem('gameWishlist');
+    return savedWishlist ? JSON.parse(savedWishlist) : [];
+  });
 
   const searchTerm = searchParams.get('search');
 
   const resultStyles = {
+
     container: {
       padding: '20px',
       maxWidth: '1200px',
@@ -92,8 +97,33 @@ const SearchResults = () => {
       color: 'white',
       borderRadius: '4px',
       fontSize: '0.9rem',
+    },
+    // ... (previous styles remain the same)
+    wishlistButton: {
+      display: 'inline-block',
+      marginLeft: '10px',
+      padding: '4px 8px',
+      backgroundColor: '#9c27b0',
+      color: 'white',
+      borderRadius: '4px',
+      fontSize: '0.9rem',
+      border: 'none',
+      cursor: 'pointer',
+    },
+    wishlistButtonActive: {
+      backgroundColor: '#6a1b9a',
+    },
+    buttonContainer: {
+      display: 'flex',
+      gap: '10px',
+      marginTop: '10px',
     }
   };
+
+  // Save to localStorage whenever wishlist changes
+  useEffect(() => {
+    localStorage.setItem('gameWishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -134,6 +164,35 @@ const SearchResults = () => {
     window.open(`https://www.cheapshark.com/redirect?dealID=${dealID}`, '_blank');
   };
 
+  const addToWishlist = (game) => {
+    const gameToAdd = {
+      id: game.gameID,
+      name: game.external,
+      price: game.cheapest,
+      thumb: game.thumb,
+      dealID: game.cheapestDealID,
+      steamRating: game.steamRatingPercent,
+      dateAdded: new Date().toISOString()
+    };
+
+    if (!wishlist.some((item) => item.id === gameToAdd.id)) {
+      setWishlist([...wishlist, gameToAdd]);
+      alert(`${gameToAdd.name} has been added to your wishlist.`);
+    } else {
+      removeFromWishlist(gameToAdd.id);
+    }
+  };
+
+  const removeFromWishlist = (gameId) => {
+    const game = wishlist.find(item => item.id === gameId);
+    setWishlist(wishlist.filter(item => item.id !== gameId));
+    alert(`${game.name} has been removed from your wishlist.`);
+  };
+
+  const isInWishlist = (gameId) => {
+    return wishlist.some(item => item.id === gameId);
+  };
+
   if (!searchTerm) {
     return (
       <div style={resultStyles.container}>
@@ -163,7 +222,6 @@ const SearchResults = () => {
           <div
             key={game.gameID}
             style={resultStyles.card}
-            onClick={() => handleDealClick(game.cheapestDealID)}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-5px)';
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
@@ -193,7 +251,26 @@ const SearchResults = () => {
                     </span>
                   )}
                 </div>
-                <div style={resultStyles.viewDeal}>View Deal →</div>
+                <div style={resultStyles.buttonContainer}>
+                  <button 
+                    style={resultStyles.viewDeal}
+                    onClick={() => handleDealClick(game.cheapestDealID)}
+                  >
+                    View Deal →
+                  </button>
+                  <button
+                    style={{
+                      ...resultStyles.wishlistButton,
+                      ...(isInWishlist(game.gameID) ? resultStyles.wishlistButtonActive : {})
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToWishlist(game);
+                    }}
+                  >
+                    {isInWishlist(game.gameID) ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
