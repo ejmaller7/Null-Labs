@@ -25,7 +25,7 @@
   [MIT License](https://opensource.org/licenses/MIT)
 
   ## Links
-  Deployed Application - ( https://null-labs.onrender.com/)
+  Deployed Application - (https://null-labs-frontend.onrender.com/)
 
   ## Contributing
   Contribution to the repo can be done through both the client and server side folders. Client side will display all the changes you want to make and how they both look and function locally, and in order to ensure that the backend runs the same way, you will need to run build in order to make sure all the changes you make on the client side work with the server side the way you intend them to.  Any adjustments to API integration will also require changes in the server side folder
