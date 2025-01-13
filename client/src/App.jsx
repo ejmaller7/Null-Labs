@@ -8,7 +8,6 @@ import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
 import Wishlist from "./components/Wishlist";
 import Footer from './components/Footer';
-import ShoppingCart from "./components/ShoppingCart";
 import SearchResults from './components/SearchResults';
 
 const App = () => {
@@ -63,7 +62,6 @@ const App = () => {
         <Route path="/createaccount" element={<CreateAccount />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/wishlist" element={<Wishlist wishlist={wishlist} isAuthenticated={isAuthenticated} />} />
-        <Route path="/shoppingCart" element={<ShoppingCart />} />
         <Route path="/search-results" element={<SearchResults />} />
       </Routes>
       <Footer />
